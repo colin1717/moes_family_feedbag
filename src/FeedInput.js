@@ -7,7 +7,7 @@ class FeedInput extends React.Component {
 
 	getFeed(event) {
 		event.preventDefault();
-		console.log("Feed Submitted");
+		console.log("FeedInput component");
 
 		//build a function to callback to save the xml
 		let pieFeedData;

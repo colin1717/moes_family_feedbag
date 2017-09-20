@@ -11,73 +11,79 @@ class App extends Component {
 		}
 	}
 
-	addPieFeed(pieFeed) {
+	buildInteractionsArray(pieFeedJson){
+		console.log('App.js component')
+		let interactions = []
+		for (let rawInteraction of pieFeedJson["children"]) {
+			interactions.push(this.buildInteraction(rawInteraction["children"]))
+		}
+		console.log(interactions);
+	}
+
+	buildInteraction(rawInteraction) {
 		const interaction = {};
 
-		console.log('addPieFeed is running');
-		this.setState({ pieFeed: pieFeed });
+		// console.log('buildInteraction is running');
+		// this.setState({ pieFeed: pieFeed });
 
 
-		//interactions here is one interaction from the PIE feed
-		let interactions = pieFeed["children"][0]["children"];
-		console.log(interactions);
-
-		interaction["transactionDate"] = this.findTransactionDate(interactions);
-		interaction["emailAddress"] = this.findEmailAddress(interactions);
-		interaction["locale"] = this.findLocale(interactions);
-		interaction["userName"] = this.findUserName(interactions);
-		interaction["deploymentZone"] = this.findDeploymentZone(interactions);
-		interaction["userId"] = this.findUserId(interactions);
+		interaction["transactionDate"] = this.findTransactionDate(rawInteraction);
+		interaction["emailAddress"] = this.findEmailAddress(rawInteraction);
+		interaction["locale"] = this.findLocale(rawInteraction);
+		interaction["userName"] = this.findUserName(rawInteraction);
+		interaction["deploymentZone"] = this.findDeploymentZone(rawInteraction);
+		interaction["userId"] = this.findUserId(rawInteraction);
 
 		// this.findProducts(interactions);
 
-		console.log(interaction);
+		return interaction;
 	}
 
-	findTransactionDate(interactions) {
-				for (let key of interactions) {
-			if (key["name"] === "TransactionDate"){
-				// console.log(`Here's the transactionDate: ${key["value"]}`);
-				// interaction.set("transactionDate", key["value"]);
+
+
+	//fix this !!!!!!
+	findTransactionDate(rawInteraction) {
+		for (let key of rawInteraction) {
+			if (key['name'] === "TransactionDate"){
 				return key["value"]
-			} 
-		}
+			}
+		} 
 	}
 
-	findEmailAddress(interactions){
-		for (let key of interactions) {
+	findEmailAddress(rawInteraction){
+		for (let key of rawInteraction) {
 			if (key["name"] === "EmailAddress"){
 				return key["value"]
 			}
 		}
 	}
 
-	findLocale(interactions){
-		for (let key of interactions){
+	findLocale(rawInteraction){
+		for (let key of rawInteraction){
 			if (key["name"] === "Locale"){
 				return key["value"]
 			}
 		}
 	}
 
-	findUserName(interactions){
-		for (let key of interactions){
+	findUserName(rawInteraction){
+		for (let key of rawInteraction){
 			if (key["name"] === "UserName"){
 				return key["value"]
 			}
 		}
 	} 
 
-	findDeploymentZone(interactions){
-		for (let key of interactions){
+	findDeploymentZone(rawInteraction){
+		for (let key of rawInteraction){
 			if (key["name"] === "DeploymentZone"){
 				return key["value"]
 			}
 		}
 	}
 
-	findUserId(interactions){
-		for (let key of interactions){
+	findUserId(rawInteraction){
+		for (let key of rawInteraction){
 			if (key["name"] === "UserID") {
 				return key["value"]
 			}
@@ -86,8 +92,8 @@ class App extends Component {
 
 
 	//right now this is console loging each exteranl ID in the products array
-	findProducts(interactions){
-		for (let key of interactions){
+	findProducts(rawInteraction){
+		for (let key of rawInteraction){
 			if (key["name"] === "Products") {
 				let productsArray = [];
 				
@@ -116,7 +122,7 @@ class App extends Component {
       <div className="App">
         <h1>Moe's Family Feedbag</h1>
         <br/>
-        <FeedInput pieFeed={this.addPieFeed.bind(this)}/>
+        <FeedInput pieFeed={this.buildInteractionsArray.bind(this)}/>
       </div>
     );
   }
