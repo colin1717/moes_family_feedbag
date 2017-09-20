@@ -16,7 +16,7 @@ class FeedInput extends React.Component {
 			pieFeedData = new XMLParser().parseFromString(pieFeedData);
 
 
-			this.props.pieFeed(pieFeedData);
+			this.props.buildInteractionsArray(pieFeedData);
 		}
 
 		// get file from input

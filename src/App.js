@@ -7,10 +7,11 @@ class App extends Component {
 		super();
 
 		this.state = {
-			pieFeed: ""
+			interactions: []
 		}
 	}
 
+	//this builds an array of pretty formatted interaction and saves it to state
 	buildInteractionsArray(pieFeedJson){
 		console.log('App.js component')
 		let interactions = []
@@ -18,14 +19,14 @@ class App extends Component {
 			interactions.push(this.buildInteraction(rawInteraction["children"]))
 		}
 		console.log(interactions);
+
+		this.setState({ interactions: interactions})
 	}
 
+
+	//this takes one rawInteraction from the PIE feed json and returns it formatted pretty
 	buildInteraction(rawInteraction) {
 		const interaction = {};
-
-		// console.log('buildInteraction is running');
-		// this.setState({ pieFeed: pieFeed });
-
 
 		interaction["transactionDate"] = this.findTransactionDate(rawInteraction);
 		interaction["emailAddress"] = this.findEmailAddress(rawInteraction);
@@ -41,7 +42,7 @@ class App extends Component {
 
 
 
-	//fix this !!!!!!
+	//below methods find values from the PIE feed and return them
 	findTransactionDate(rawInteraction) {
 		for (let key of rawInteraction) {
 			if (key['name'] === "TransactionDate"){
@@ -122,7 +123,7 @@ class App extends Component {
       <div className="App">
         <h1>Moe's Family Feedbag</h1>
         <br/>
-        <FeedInput pieFeed={this.buildInteractionsArray.bind(this)}/>
+        <FeedInput buildInteractionsArray={this.buildInteractionsArray.bind(this)}/>
       </div>
     );
   }
