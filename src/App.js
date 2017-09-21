@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FeedInput from './FeedInput';
+
 import './App.css';
 
 class App extends Component {
@@ -124,6 +125,7 @@ class App extends Component {
         <h1>Moe's Family Feedbag</h1>
         <br/>
         <FeedInput buildInteractionsArray={this.buildInteractionsArray.bind(this)}/>
+        <br/>
       </div>
     );
   }
