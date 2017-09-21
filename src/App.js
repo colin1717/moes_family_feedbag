@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FeedInput from './FeedInput';
+import TransactionCount from './TransactionCount';
 
 import './App.css';
 
@@ -131,11 +132,7 @@ class App extends Component {
 				    <div className="container">
 				      <div className="row">
 				        <div className="col-sm-4">
-				          <div className="transactions-count-card">
-				            <div className="transactions-count">17</div>
-				            <hr className="hr-score"/>
-				            <span className="transactions-title">Transactions</span>
-				          </div>
+				          <TransactionCount count={this.state.interactions.length}/>
 				        </div>
 				        <div className="col-sm-4">
 				          <div className="atr-card">100% Email</div>

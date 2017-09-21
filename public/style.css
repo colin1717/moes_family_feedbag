@@ -23,6 +23,7 @@ header {
   height: 280px;
   margin: 0 15px 0 15px;
   border-radius: 2px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .transactions-count {
@@ -51,4 +52,5 @@ header {
   padding: 28px;
   font-size: 14pt;
   border-radius: 2px;
+  font-family: 'Roboto', sans-serif;
 }
