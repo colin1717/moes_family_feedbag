@@ -122,11 +122,37 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Moe's Family Feedbag</h1>
-        <br/>
-        <FeedInput buildInteractionsArray={this.buildInteractionsArray.bind(this)}/>
-        <br/>
+
+          <header>
+				    <div className="title">Moe's Family Feedbag</div>
+				  </header>
+				  <FeedInput buildInteractionsArray={this.buildInteractionsArray.bind(this)} />
+				  <section className='pie-results'>
+				    <div className="container">
+				      <div className="row">
+				        <div className="col-sm-4">
+				          <div className="transactions-count-card">
+				            <div className="transactions-count">17</div>
+				            <hr className="hr-score"/>
+				            <span className="transactions-title">Transactions</span>
+				          </div>
+				        </div>
+				        <div className="col-sm-4">
+				          <div className="atr-card">100% Email</div>
+				          <div className="atr-card">100% User Name</div>
+				          <div className="atr-card">100% User Id</div>
+				        </div>
+				        <div className="col-sm-4">
+				          <div className="atr-card">100% Transaction Date</div>
+				          <div className="atr-card">100% Deployment Zone</div>
+				          <div className="atr-card">100% Locale</div>
+				        </div>
+				      </div>
+				    </div>
+				  </section>
+
       </div>
+
     );
   }
 }

@@ -37,13 +37,12 @@ class FeedInput extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<form onSubmit={this.getFeed.bind(this)}>
-					<input type="file" ref={(input) => {this.fileInput = input}} />
-					<br/>
-					<button type="submit">Submit</button>
-				</form>
-			</div>
+			<section>
+				    <form onSubmit={this.getFeed.bind(this)}>
+				      <input type="file" className="file-input" ref={(input) => {this.fileInput = input}}/>
+				      <button type="submit">Submit</button>
+				    </form>
+			</section>
 			)
 	}
 }
