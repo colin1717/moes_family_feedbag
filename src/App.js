@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FeedInput from './FeedInput';
 import TransactionCount from './TransactionCount';
+import AttributeCard from './AttributeCard';
 
 import './App.css';
 
@@ -135,14 +136,14 @@ class App extends Component {
 				          <TransactionCount count={this.state.interactions.length}/>
 				        </div>
 				        <div className="col-sm-4">
-				          <div className="atr-card">100% Email</div>
-				          <div className="atr-card">100% User Name</div>
-				          <div className="atr-card">100% User Id</div>
+				          <AttributeCard value="100% Email" />
+				          <AttributeCard value="100% User Name" />
+				          <AttributeCard value="100% User Id" />
 				        </div>
 				        <div className="col-sm-4">
-				          <div className="atr-card">100% Transaction Date</div>
-				          <div className="atr-card">100% Deployment Zone</div>
-				          <div className="atr-card">100% Locale</div>
+				          <AttributeCard value="100% Transaction Date" />
+				          <AttributeCard value="100% Deployment Zone" />
+				          <AttributeCard value="100% Locale" />
 				        </div>
 				      </div>
 				    </div>
