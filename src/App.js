@@ -31,12 +31,12 @@ class App extends Component {
 	buildInteraction(rawInteraction) {
 		const interaction = {};
 
-		interaction["transactionDate"] = this.findTransactionDate(rawInteraction);
-		interaction["emailAddress"] = this.findEmailAddress(rawInteraction);
-		interaction["locale"] = this.findLocale(rawInteraction);
-		interaction["userName"] = this.findUserName(rawInteraction);
-		interaction["deploymentZone"] = this.findDeploymentZone(rawInteraction);
-		interaction["userId"] = this.findUserId(rawInteraction);
+		interaction["transactionDate"] = this.findElement(rawInteraction, "TransactionDate");
+		interaction["emailAddress"] = this.findElement(rawInteraction, "EmailAddress");
+		interaction["locale"] = this.findElement(rawInteraction, "Locale");
+		interaction["userName"] = this.findElement(rawInteraction, "UserName");
+		interaction["deploymentZone"] = this.findElement(rawInteraction, "DeploymentZone");
+		interaction["userId"] = this.findElement(rawInteraction, "UserID");
 
 		// this.findProducts(interactions);
 
@@ -45,57 +45,18 @@ class App extends Component {
 
 
 
-	//below methods find values from the PIE feed and return them
-	findTransactionDate(rawInteraction) {
+//below methods find values from the PIE feed and return them
+//rawElement here is the raw element name from the PIE feed
+	findElement(rawInteraction, rawElement) {
 		for (let key of rawInteraction) {
-			if (key['name'] === "TransactionDate"){
-				return key["value"]
-			}
-		} 
-	}
-
-	findEmailAddress(rawInteraction){
-		for (let key of rawInteraction) {
-			if (key["name"] === "EmailAddress"){
-				return key["value"]
-			}
-		}
-	}
-
-	findLocale(rawInteraction){
-		for (let key of rawInteraction){
-			if (key["name"] === "Locale"){
-				return key["value"]
-			}
-		}
-	}
-
-	findUserName(rawInteraction){
-		for (let key of rawInteraction){
-			if (key["name"] === "UserName"){
-				return key["value"]
-			}
-		}
-	} 
-
-	findDeploymentZone(rawInteraction){
-		for (let key of rawInteraction){
-			if (key["name"] === "DeploymentZone"){
-				return key["value"]
-			}
-		}
-	}
-
-	findUserId(rawInteraction){
-		for (let key of rawInteraction){
-			if (key["name"] === "UserID") {
-				return key["value"]
+			if (key['name'] === rawElement){
+				return key["value"];
 			}
 		}
 	}
 
 	//functions to calculate % for attribute cards
-
+	//element is the name of the element in the PIE feed
 	//devide number of interactions w/o element by total interactions
 	//if result is NaN return element else return the result
 	calcPercentage(interactions, element){
@@ -112,12 +73,7 @@ class App extends Component {
 		return result;
 	}
 
-	
-
-
-
-
-	//right now this is console loging each exteranl ID in the products array
+//right now this is console loging each exteranl ID in the products array
 	findProducts(rawInteraction){
 		for (let key of rawInteraction){
 			if (key["name"] === "Products") {
