@@ -94,6 +94,28 @@ class App extends Component {
 		}
 	}
 
+	//functions to calculate % for attribute cards
+
+	//devide number of interactions w/o element by total interactions
+	//if result is NaN return element else return the result
+	calcPercentage(interactions, element){
+		let count = interactions.length;
+		for (let interaction of interactions) {
+			if (interaction[element] === undefined) {
+				count -= 1;
+			} 
+		} 
+		let result;
+
+		isNaN(Math.floor(((count)/interactions.length) * 100)) ? result = element : result = `${Math.floor(((count)/interactions.length) * 100)}% ${element}`;
+
+		return result;
+	}
+
+	
+
+
+
 
 	//right now this is console loging each exteranl ID in the products array
 	findProducts(rawInteraction){
@@ -136,14 +158,14 @@ class App extends Component {
 				          <TransactionCount count={this.state.interactions.length}/>
 				        </div>
 				        <div className="col-sm-4">
-				          <AttributeCard value="100% Email" />
-				          <AttributeCard value="100% User Name" />
-				          <AttributeCard value="100% User Id" />
+				          <AttributeCard value={this.calcPercentage(this.state.interactions, "emailAddress")} />
+				          <AttributeCard value={this.calcPercentage(this.state.interactions, "userName")} />
+				          <AttributeCard value={this.calcPercentage(this.state.interactions, "userId")} />
 				        </div>
 				        <div className="col-sm-4">
-				          <AttributeCard value="100% Transaction Date" />
-				          <AttributeCard value="100% Deployment Zone" />
-				          <AttributeCard value="100% Locale" />
+				          <AttributeCard value={this.calcPercentage(this.state.interactions, "transactionDate")} />
+				          <AttributeCard value={this.calcPercentage(this.state.interactions, "deploymentZone")} />
+				          <AttributeCard value={this.calcPercentage(this.state.interactions, "locale")} />
 				        </div>
 				      </div>
 				    </div>
