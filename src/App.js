@@ -75,7 +75,7 @@ class App extends Component {
 		return result;
 	}
 
-//right now this is console loging each external ID in the products array
+//this returns a formatted array of Maps that contain each piece of product info
 findProducts(rawInteraction){
   let finalProductArr = [] 
   for (let key of rawInteraction){
