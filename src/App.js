@@ -29,6 +29,8 @@ class App extends Component {
 
 	//this takes one rawInteraction from the PIE feed json and returns it formatted pretty
 	buildInteraction(rawInteraction) {
+		console.log(`rawInteraction: ${JSON.stringify(rawInteraction)}`)
+
 		const interaction = {};
 
 		interaction["transactionDate"] = this.findElement(rawInteraction, "TransactionDate");
@@ -37,8 +39,8 @@ class App extends Component {
 		interaction["userName"] = this.findElement(rawInteraction, "UserName");
 		interaction["deploymentZone"] = this.findElement(rawInteraction, "DeploymentZone");
 		interaction["userId"] = this.findElement(rawInteraction, "UserID");
-
-		// this.findProducts(interactions);
+		interaction['products'] = this.findProducts(rawInteraction);
+		
 
 		return interaction;
 	}
@@ -73,27 +75,36 @@ class App extends Component {
 		return result;
 	}
 
-//right now this is console loging each exteranl ID in the products array
-	findProducts(rawInteraction){
-		for (let key of rawInteraction){
-			if (key["name"] === "Products") {
-				let productsArray = [];
-				
-				for (let productArr of key["children"]){
-					console.log(`productArr children: $productArr["children"]} `)
+//right now this is console loging each external ID in the products array
+findProducts(rawInteraction){
+  let finalProductArr = [] 
+  for (let key of rawInteraction){
+    if(key['name'] === "Products") {
+      let productsArr = key['children']
+      
+      for (let singleComplexProductArr of productsArr ) {
+       // console.log(singleComplexProductArr['children'])
+        let singleProduct = new Map()
+        for (let singleProductArr of singleComplexProductArr['children']) {
+          console.log(singleProductArr)
+          
+          singleProductArr['name'] === "ExternalId" ? singleProduct["externalId"] = singleProductArr['value'] : singleProduct["externalId"] = undefined
+          singleProductArr['name'] === "ImageUrl" ? singleProduct['imageUrl'] = singleProductArr['value'] : singleProduct['imageUrl'] = undefined
+          singleProductArr['name'] === "Name" ? singleProduct['name'] = singleProductArr['value'] : singleProduct['name'] = undefined
+          singleProductArr['name'] === "Price" ? singleProduct['price'] = singleProductArr['value'] : singleProduct['price'] = undefined
+            console.log(singleProduct)
+         
+          finalProductArr.push(singleProduct) 
+            
+        }
+        console.log('==============================')
 
-					for (let product of productArr["children"]){
-						
-						if (product["name"] === "ExternalId"){
-							console.log(product["value"])
-						}
-					}
-				}
-
-				
-			}
-		}
-	}
+      }
+    }
+  }
+  console.log(`finalProductArr: ${JSON.stringify(finalProductArr)}`)
+  return finalProductArr;
+}
 
 
   render() {
