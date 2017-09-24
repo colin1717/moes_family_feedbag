@@ -16,7 +16,6 @@ class App extends Component {
 
 	//this takes the raw JSON from PIE feed and builds an array of interactions and saves it to state
 	buildInteractionsArray(pieFeedJson){
-		console.log('App.js component')
 		let interactions = []
 		for (let rawInteraction of pieFeedJson["children"]) {
 			interactions.push(this.buildInteraction(rawInteraction["children"]))
@@ -29,7 +28,6 @@ class App extends Component {
 
 	//this takes one rawInteraction from the PIE feed json and returns it formatted pretty
 	buildInteraction(rawInteraction) {
-		console.log(`rawInteraction: ${JSON.stringify(rawInteraction)}`)
 
 		const interaction = {};
 
@@ -83,26 +81,19 @@ findProducts(rawInteraction){
       let productsArr = key['children']
       
       for (let singleComplexProductArr of productsArr ) {
-       // console.log(singleComplexProductArr['children'])
         let singleProduct = new Map()
         for (let singleProductArr of singleComplexProductArr['children']) {
-          console.log(singleProductArr)
           
           singleProductArr['name'] === "ExternalId" ? singleProduct["externalId"] = singleProductArr['value'] : singleProduct["externalId"] = undefined
           singleProductArr['name'] === "ImageUrl" ? singleProduct['imageUrl'] = singleProductArr['value'] : singleProduct['imageUrl'] = undefined
           singleProductArr['name'] === "Name" ? singleProduct['name'] = singleProductArr['value'] : singleProduct['name'] = undefined
           singleProductArr['name'] === "Price" ? singleProduct['price'] = singleProductArr['value'] : singleProduct['price'] = undefined
-            console.log(singleProduct)
          
-          finalProductArr.push(singleProduct) 
-            
+          finalProductArr.push(singleProduct)            
         }
-        console.log('==============================')
-
       }
     }
   }
-  console.log(`finalProductArr: ${JSON.stringify(finalProductArr)}`)
   return finalProductArr;
 }
 
