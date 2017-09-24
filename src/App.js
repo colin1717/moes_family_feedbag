@@ -14,7 +14,7 @@ class App extends Component {
 		}
 	}
 
-	//this builds an array of pretty formatted interaction and saves it to state
+	//this takes the raw JSON from PIE feed and builds an array of interactions and saves it to state
 	buildInteractionsArray(pieFeedJson){
 		console.log('App.js component')
 		let interactions = []
@@ -95,9 +95,6 @@ class App extends Component {
 		}
 	}
 
-	findProductExternalId(){
-
-	}
 
   render() {
     return (
