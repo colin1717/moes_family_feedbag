@@ -83,14 +83,25 @@ findProducts(rawInteraction){
       for (let singleComplexProductArr of productsArr ) {
         let singleProduct = new Map()
         for (let singleProductArr of singleComplexProductArr['children']) {
+
+        	if (singleProductArr['name'] === "ExternalId") {
+        		singleProduct.set('externalId', singleProductArr['value'])
+        	}
           
-          singleProductArr['name'] === "ExternalId" ? singleProduct["externalId"] = singleProductArr['value'] : singleProduct["externalId"] = undefined
-          singleProductArr['name'] === "ImageUrl" ? singleProduct['imageUrl'] = singleProductArr['value'] : singleProduct['imageUrl'] = undefined
-          singleProductArr['name'] === "Name" ? singleProduct['name'] = singleProductArr['value'] : singleProduct['name'] = undefined
-          singleProductArr['name'] === "Price" ? singleProduct['price'] = singleProductArr['value'] : singleProduct['price'] = undefined
-         
-          finalProductArr.push(singleProduct)            
+          if (singleProductArr['name'] === "ImageUrl") {
+          	singleProduct.set('imageUrl', singleProductArr['value'])
+          }
+
+          if (singleProductArr['name'] === "Name") {
+          	singleProduct.set('name', singleProductArr["value"])
+          }
+          
+          if (singleProductArr['name'] === "Price") {
+          	singleProduct.set('price', singleProductArr['value'])
+          }
+
         }
+        finalProductArr.push(singleProduct) 
       }
     }
   }
