@@ -7,7 +7,7 @@ class TransactionCount extends React.Component {
         <div className="transactions-count">{this.props.count}</div>
         <span className="transactions-title">Transactions</span>
         <hr className="hr-score"/>
-        <div className="transactions-count">17</div>
+        <div className="transactions-count">{this.props.productCount}</div>
         <span className="transactions-title">Have Products Defined</span>
       </div>
 			)
