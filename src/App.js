@@ -124,6 +124,28 @@ findProducts(rawInteraction){
 				        </div>
 				      </div>
 				    </div>
+				        <div className="products">
+					      <div className="container">
+					        <div className="row">
+					          <div className="col-sm-1"></div>
+					          <div className="col-sm-5">
+					            <div className="product-info-card">
+					              <span className="product-info-title">PIE Feed Products</span>
+					              <hr className='product-score'/>
+					              <span className="product-info">100% External Ids</span>
+					              <hr />
+					              <span className="product-info">100% PIE Feed Image URLs</span>
+					              <hr />
+					              <span className="product-info">100% Pie Feed Names</span>
+					              <hr />
+					              <span className="product-info">100% Pie Feed Prices</span>
+					            </div>
+					          </div>
+					          <div className="col-sm-1"></div>
+					          <div className="col-sm-5"></div>
+					        </div>
+					      </div>
+					    </div>
 				  </section>
 
       </div>

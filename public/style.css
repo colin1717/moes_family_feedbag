@@ -58,3 +58,28 @@ header {
   font-family: 'Roboto', sans-serif;
   background-color: white;
 }
+
+/* Products info */
+
+.products {
+    margin: 15px;
+    height: 400px;
+}
+
+.product-info-card {
+  box-shadow: 0px 1px 8px -1px #757575;
+  margin: 0 15px 0 15px;
+  border-radius: 2px;
+  padding: 20px;
+  background-color: white;
+}
+
+.product-info-title {
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.product-score {
+  border-color: #888888;
+}
+
