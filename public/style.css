@@ -5,17 +5,17 @@ body {
 }
 
 header {
-  padding-top: 40px;
-  height: 180px;
+  padding-top: 20px;
+  height: 120px;
 }
 
 .title {
-  font-size: 54pt;
+  font-size: 45pt;
   color: #17AA8E;
 }
 
 .pie-results {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 /* TransactionCount */
@@ -64,7 +64,7 @@ header {
 
 .products {
     margin: 15px;
-    height: 400px;
+    height: 310px;
 }
 
 .product-info-card {

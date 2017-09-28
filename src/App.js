@@ -20,7 +20,6 @@ class App extends Component {
 		for (let rawInteraction of pieFeedJson["children"]) {
 			interactions.push(this.buildInteraction(rawInteraction["children"]))
 		}
-		console.log(interactions);
 
 		this.setState({ interactions: interactions})
 	}
@@ -71,6 +70,24 @@ calcPercentage(interactions, element){
 	isNaN(Math.floor(((count)/interactions.length) * 100)) ? result = element : result = `${Math.floor(((count)/interactions.length) * 100)}% ${element}`;
 
 	return result;
+}
+
+//fucntion to calc the precentage of the product children elements
+calcProductPercentage(interactions, element) {
+	let totalProductCount = 0;
+	let productsWithElementsCount = 0;
+	for (let productArray of interactions) {
+
+			for (let product of productArray['products']) {
+				totalProductCount += 1
+
+				if(product.has(element)) {
+					productsWithElementsCount +=1 
+				}
+			}
+
+	}
+	return `${productsWithElementsCount} / ${totalProductCount}`
 }
 
 //counts the number of interactions with product arrays
@@ -154,13 +171,13 @@ findProducts(rawInteraction){
 					            <div className="product-info-card">
 					              <span className="product-info-title">PIE Feed Products</span>
 					              <hr className='product-score'/>
-					              <span className="product-info">100% External Ids</span>
+					              <span className="product-info">{this.calcProductPercentage(this.state.interactions, 'externalId')} contain External Ids</span>
 					              <hr />
-					              <span className="product-info">100% PIE Feed Image URLs</span>
+					              <span className="product-info">{this.calcProductPercentage(this.state.interactions, 'imageUrl')} contain PIE Feed Image URLs</span>
 					              <hr />
-					              <span className="product-info">100% Pie Feed Names</span>
+					              <span className="product-info">{this.calcProductPercentage(this.state.interactions, 'name')} contain PIE Feed Names</span>
 					              <hr />
-					              <span className="product-info">100% Pie Feed Prices</span>
+					              <span className="product-info">{this.calcProductPercentage(this.state.interactions, 'price')} contain PIE Feed Prices</span>
 					            </div>
 					          </div>
 					          <div className="col-sm-1"></div>
