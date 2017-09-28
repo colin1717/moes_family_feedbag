@@ -55,27 +55,38 @@ class App extends Component {
 		}
 	}
 
-	//functions to calculate % for attribute cards
-	//element is the name of the element in the PIE feed
-	//devide number of interactions w/o element by total interactions
-	//if result is NaN return element else return the result
-	calcPercentage(interactions, element){
-		let count = interactions.length;
-		for (let interaction of interactions) {
-			if (interaction[element] === undefined) {
-				count -= 1;
-			} 
+//functions to calculate % for attribute cards
+//element is the name of the element in the PIE feed
+//devide number of interactions w/o element by total interactions
+//if result is NaN return element else return the result
+calcPercentage(interactions, element){
+	let count = interactions.length;
+	for (let interaction of interactions) {
+		if (interaction[element] === undefined) {
+			count -= 1;
 		} 
-		let result;
+	} 
+	let result;
 
-		isNaN(Math.floor(((count)/interactions.length) * 100)) ? result = element : result = `${Math.floor(((count)/interactions.length) * 100)}% ${element}`;
+	isNaN(Math.floor(((count)/interactions.length) * 100)) ? result = element : result = `${Math.floor(((count)/interactions.length) * 100)}% ${element}`;
 
-		return result;
+	return result;
+}
+
+//counts the number of interactions with product arrays
+calcProductCount(interactions) {
+	let count = interactions.length;
+	for (let interaction of interactions){
+		if (interaction["products"].length <= 0) {
+			count -= 1;
+		}
 	}
+	return count;
+}
 
 //this returns a formatted array of Maps that contain each piece of product info
 findProducts(rawInteraction){
-  let finalProductArr = [] 
+  let finalProductArr = [];
   for (let key of rawInteraction){
     if(key['name'] === "Products") {
       let productsArr = key['children']
@@ -121,7 +132,7 @@ findProducts(rawInteraction){
 				    <div className="container">
 				      <div className="row">
 				        <div className="col-sm-4">
-				          <TransactionCount count={this.state.interactions.length}/>
+				          <TransactionCount count={this.state.interactions.length} productCount={this.calcProductCount(this.state.interactions)} />
 				        </div>
 				        <div className="col-sm-4">
 				          <AttributeCard value={this.calcPercentage(this.state.interactions, "emailAddress")} />
@@ -135,6 +146,28 @@ findProducts(rawInteraction){
 				        </div>
 				      </div>
 				    </div>
+				        <div className="products">
+					      <div className="container">
+					        <div className="row">
+					          <div className="col-sm-1"></div>
+					          <div className="col-sm-5">
+					            <div className="product-info-card">
+					              <span className="product-info-title">PIE Feed Products</span>
+					              <hr className='product-score'/>
+					              <span className="product-info">100% External Ids</span>
+					              <hr />
+					              <span className="product-info">100% PIE Feed Image URLs</span>
+					              <hr />
+					              <span className="product-info">100% Pie Feed Names</span>
+					              <hr />
+					              <span className="product-info">100% Pie Feed Prices</span>
+					            </div>
+					          </div>
+					          <div className="col-sm-1"></div>
+					          <div className="col-sm-5"></div>
+					        </div>
+					      </div>
+					    </div>
 				  </section>
 
       </div>

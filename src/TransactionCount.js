@@ -5,8 +5,10 @@ class TransactionCount extends React.Component {
 		return (
 			<div className="transactions-count-card">
         <div className="transactions-count">{this.props.count}</div>
-        <hr className="hr-score"/>
         <span className="transactions-title">Transactions</span>
+        <hr className="hr-score"/>
+        <div className="transactions-count">{this.props.productCount}</div>
+        <span className="transactions-title">Have Products Defined</span>
       </div>
 			)
 	}
