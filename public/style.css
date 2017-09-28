@@ -25,25 +25,26 @@ header {
   height: 280px;
   margin: 0 15px 0 15px;
   border-radius: 2px;
-  font-family: 'Roboto', sans-serif;
+  padding: 20px;
   background-color: white;
 }
 
 .transactions-count {
-  font-size: 70pt;
-  padding-top: 30px;
+  font-size: 35pt;
+  padding-top: 5px;
 }
 
 .hr-score {
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 10px;
   border-color: #888888;
-  margin-bottom: 30px;
 }
 
 .transactions-title {
   margin-top: 30px;
   font-size: 12pt;
+  margin-bottom: 5px;
 }
 
 /* AttributeCount */
