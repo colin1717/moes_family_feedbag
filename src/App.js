@@ -36,7 +36,7 @@ class App extends Component {
 		interaction["userName"] = this.findElement(rawInteraction, "UserName");
 		interaction["deploymentZone"] = this.findElement(rawInteraction, "DeploymentZone");
 		interaction["userId"] = this.findElement(rawInteraction, "UserID");
-		interaction['products'] = this.findProducts(rawInteraction);
+		interaction['products'] = this.findProducts2(rawInteraction);
 		
 
 		return interaction;
@@ -81,7 +81,7 @@ calcProductPercentage(interactions, element) {
 			for (let product of productArray['products']) {
 				totalProductCount += 1
 
-				if(product.has(element)) {
+				if(product.hasOwnProperty(element)) {
 					productsWithElementsCount +=1 
 				}
 			}
@@ -102,30 +102,65 @@ calcProductCount(interactions) {
 }
 
 //this returns a formatted array of Maps that contain each piece of product info
-findProducts(rawInteraction){
+// findProducts(rawInteraction){
+//   let finalProductArr = [];
+//   for (let key of rawInteraction){
+//     if(key['name'] === "Products") {
+//       let productsArr = key['children']
+      
+//       for (let singleComplexProductArr of productsArr ) {
+//         let singleProduct = new Map()
+//         for (let singleProductArr of singleComplexProductArr['children']) {
+
+//         	if (singleProductArr['name'] === "ExternalId") {
+//         		singleProduct.set('externalId', singleProductArr['value'])
+//         	}
+          
+//           if (singleProductArr['name'] === "ImageUrl") {
+//           	singleProduct.set('imageUrl', singleProductArr['value'])
+//           }
+
+//           if (singleProductArr['name'] === "Name") {
+//           	singleProduct.set('name', singleProductArr["value"])
+//           }
+          
+//           if (singleProductArr['name'] === "Price") {
+//           	singleProduct.set('price', singleProductArr['value'])
+//           }
+
+//         }
+//         finalProductArr.push(singleProduct) 
+//       }
+//     }
+//   }
+//   return finalProductArr;
+// }
+
+//this returns a formatted array of objects that contain each piece of product info
+findProducts2(rawInteraction){
   let finalProductArr = [];
   for (let key of rawInteraction){
     if(key['name'] === "Products") {
       let productsArr = key['children']
       
       for (let singleComplexProductArr of productsArr ) {
-        let singleProduct = new Map()
+        let singleProduct = {}
         for (let singleProductArr of singleComplexProductArr['children']) {
 
         	if (singleProductArr['name'] === "ExternalId") {
-        		singleProduct.set('externalId', singleProductArr['value'])
+        		singleProduct['externalId'] = singleProductArr['value']
         	}
           
           if (singleProductArr['name'] === "ImageUrl") {
-          	singleProduct.set('imageUrl', singleProductArr['value'])
+          	singleProduct['imageUrl'] = singleProductArr['value']
           }
 
           if (singleProductArr['name'] === "Name") {
-          	singleProduct.set('name', singleProductArr["value"])
+          	singleProduct['name'] = singleProductArr["value"]
           }
           
           if (singleProductArr['name'] === "Price") {
-          	singleProduct.set('price', singleProductArr['value'])
+          	singleProduct['price'] = singleProductArr['value']
           }
 
         }
@@ -181,7 +216,12 @@ findProducts(rawInteraction){
 					            </div>
 					          </div>
 					          <div className="col-sm-1"></div>
-					          <div className="col-sm-5"></div>
+					          <div className="col-sm-5">
+					          	<div className="product-info-card">
+					          		<div className="product-info-title">Product Feed</div>
+					          		<div className="product-score"></div>
+					          	</div>
+					          </div>
 					        </div>
 					      </div>
 					    </div>
