@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FeedInput from './FeedInput';
 import TransactionCount from './TransactionCount';
 import AttributeCard from './AttributeCard';
+import * as parsePieFeed from './scripts/parsePieFeed';
 
 import './App.css';
 
@@ -14,45 +15,16 @@ class App extends Component {
 		}
 	}
 
-	//this takes the raw JSON from PIE feed and builds an array of interactions and saves it to state
-	buildInteractionsArray(pieFeedJson){
-		let interactions = []
-		for (let rawInteraction of pieFeedJson["children"]) {
-			interactions.push(this.buildInteraction(rawInteraction["children"]))
-		}
-
-		this.setState({ interactions: interactions})
+//this takes the raw JSON from PIE feed and builds an array of interactions and saves it to state
+buildInteractionsArray(pieFeedJson){
+	let interactions = []
+	for (let rawInteraction of pieFeedJson["children"]) {
+		interactions.push(parsePieFeed.buildInteraction(rawInteraction["children"]))
 	}
 
+	this.setState({ interactions: interactions})
+}
 
-	//this takes one rawInteraction from the PIE feed json and returns it formatted pretty
-	buildInteraction(rawInteraction) {
-
-		const interaction = {};
-
-		interaction["transactionDate"] = this.findElement(rawInteraction, "TransactionDate");
-		interaction["emailAddress"] = this.findElement(rawInteraction, "EmailAddress");
-		interaction["locale"] = this.findElement(rawInteraction, "Locale");
-		interaction["userName"] = this.findElement(rawInteraction, "UserName");
-		interaction["deploymentZone"] = this.findElement(rawInteraction, "DeploymentZone");
-		interaction["userId"] = this.findElement(rawInteraction, "UserID");
-		interaction['products'] = this.findProducts2(rawInteraction);
-		
-
-		return interaction;
-	}
-
-
-
-//below methods find values from the PIE feed and return them
-//rawElement here is the raw element name from the PIE feed
-	findElement(rawInteraction, rawElement) {
-		for (let key of rawInteraction) {
-			if (key['name'] === rawElement){
-				return key["value"];
-			}
-		}
-	}
 
 //functions to calculate % for attribute cards
 //element is the name of the element in the PIE feed
@@ -100,77 +72,6 @@ calcProductCount(interactions) {
 	}
 	return count;
 }
-
-//this returns a formatted array of Maps that contain each piece of product info
-// findProducts(rawInteraction){
-//   let finalProductArr = [];
-//   for (let key of rawInteraction){
-//     if(key['name'] === "Products") {
-//       let productsArr = key['children']
-      
-//       for (let singleComplexProductArr of productsArr ) {
-//         let singleProduct = new Map()
-//         for (let singleProductArr of singleComplexProductArr['children']) {
-
-//         	if (singleProductArr['name'] === "ExternalId") {
-//         		singleProduct.set('externalId', singleProductArr['value'])
-//         	}
-          
-//           if (singleProductArr['name'] === "ImageUrl") {
-//           	singleProduct.set('imageUrl', singleProductArr['value'])
-//           }
-
-//           if (singleProductArr['name'] === "Name") {
-//           	singleProduct.set('name', singleProductArr["value"])
-//           }
-          
-//           if (singleProductArr['name'] === "Price") {
-//           	singleProduct.set('price', singleProductArr['value'])
-//           }
-
-//         }
-//         finalProductArr.push(singleProduct) 
-//       }
-//     }
-//   }
-//   return finalProductArr;
-// }
-
-//this returns a formatted array of objects that contain each piece of product info
-findProducts2(rawInteraction){
-  let finalProductArr = [];
-  for (let key of rawInteraction){
-    if(key['name'] === "Products") {
-      let productsArr = key['children']
-      
-      for (let singleComplexProductArr of productsArr ) {
-        let singleProduct = {}
-        for (let singleProductArr of singleComplexProductArr['children']) {
-
-        	if (singleProductArr['name'] === "ExternalId") {
-        		singleProduct['externalId'] = singleProductArr['value']
-        	}
-          
-          if (singleProductArr['name'] === "ImageUrl") {
-          	singleProduct['imageUrl'] = singleProductArr['value']
-          }
-
-          if (singleProductArr['name'] === "Name") {
-          	singleProduct['name'] = singleProductArr["value"]
-          }
-          
-          if (singleProductArr['name'] === "Price") {
-          	singleProduct['price'] = singleProductArr['value']
-          }
-
-        }
-        finalProductArr.push(singleProduct) 
-      }
-    }
-  }
-  return finalProductArr;
-}
-
 
   render() {
     return (
